@@ -14,14 +14,24 @@ class App extends Component {
                     <div className="Input-wrap">
                         <label className={"Input-variable-text Unselected"}>or geo coordinates.</label>
                         <div>
-                            <div>
-                                <label className="Unselected">Lat.</label>
-                                <input className="Text-input" id="LatInput" type="text" placeholder="35"/>
-                            </div>
-                            <div>
-                                <label className="Unselected">Lon.</label>
-                                <input className="Text-input" id="LonInput" type="text" placeholder="139"/>
-                            </div>
+                            <table id="GeoTable">
+                                <td>
+                                    <tr className="Geo-title">
+                                        <label className="Unselected">Lat.</label>
+                                    </tr>
+                                    <tr>
+                                        <input className="Text-input" id="LatInput" type="text" placeholder="35"/>
+                                    </tr>
+                                </td>
+                                <td>
+                                    <tr className="Geo-title">
+                                        <label className="Unselected">Lon.</label>
+                                    </tr>
+                                    <tr>
+                                        <input className="Text-input" id="LonInput" type="text" placeholder="139"/>
+                                    </tr>
+                                </td>
+                            </table>
                         </div>
                     </div>
                 </div>

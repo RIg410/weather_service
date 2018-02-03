@@ -44,7 +44,7 @@
 }
 
 .Input-div {
-    border-radius: 1px;
+    border-radius: 2px;
     float: left;
     background: rgb(1, 152, 225);
     color: white;
@@ -75,14 +75,20 @@
     margin: 0 auto 20px;
 }
 
+.Geo-title {
+    text-align: left;
+}
+
 .Button:hover {
     background-color: #32ff90
 }
+
 .Button:active {
     background-color: #46ffae
 }
 
 .Input-wrap {
+    padding-bottom: 20px;
 }
 
 .Text-input {
@@ -91,19 +97,28 @@
     padding: 10px;
     /*max-width: 300px;*/
     margin: 0;
-    font-family: 'Open Sans',sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 18px;
     color: #2B2B2B;
     list-style: none;
 }
 
+#GeoTable {
+    margin: 0 auto;
+}
+
+td {
+    padding: 15px;
+}
+
 #CityNameInput {
-     max-width: 300px;
- }
+    max-width: 300px;
+}
 
 #LatInput {
-    max-width: 100px;
+    max-width: 120px;
 }
+
 #LonInput {
-    max-width: 100px;
+    max-width: 120px;
 }
