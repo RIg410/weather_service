@@ -43,6 +43,15 @@
     text-align: center;
 }
 
+.Input-div-blur {
+    background-color:#8CD6EB;
+    -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -o-filter: blur(3px);
+    -ms-filter: blur(3px);
+    filter: blur(3px);
+}
+
 .Input-div {
     border-radius: 2px;
     float: left;
@@ -63,14 +72,24 @@
 
 .Button {
     text-align: center;
-    padding: 20px;
+    padding: 10px;
     font-size: 32px;
     background: #03E090;
     cursor: pointer;
     color: #FFF;
     border: 2px solid #FFF;
-    /*border-radius: 8px;*/
-    /*background-color: rgba(23, 35, 34, .75);*/
+    width: 100px;
+    margin: 0 auto 20px;
+}
+
+.Disabled-button {
+    text-align: center;
+    padding: 10px;
+    font-size: 32px;
+    background: #03E090;
+    cursor: pointer;
+    color: #FFF;
+    border: 2px solid #FFF;
     width: 100px;
     margin: 0 auto 20px;
 }

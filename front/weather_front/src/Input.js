@@ -19,14 +19,14 @@ class Input extends Component {
 
     render() {
         return (
-            <div className="Input-div">
+            <div className={`Input-div ${this.props.is_enable ? "" : "Input-div-blur"}`}>
                 <h1 className="Block-title Unselected">Check the weather!</h1>
                 <div>
                     <div className="Input-wrap">
                         <label className={"Input-variable-text Unselected"}>Use city name.</label>
                         <input className={`Text-input ${this.getNameInputClass()}`} id="CityNameInput"
                                onClick={this.selectNameImport.bind(this)} type="text"
-                               placeholder="London"/>
+                               placeholder="London" disabled={!this.props.is_enable}/>
                     </div>
                     <div className="Input-wrap">
                         <label className={"Input-variable-text Unselected"}>or geo coordinates.</label>
@@ -39,7 +39,8 @@ class Input extends Component {
                                     </tr>
                                     <tr>
                                         <input className={`Text-input ${this.getGeoInputClass()}`} id="LatInput"
-                                               type="text" placeholder="35" onClick={this.selectGeoImport.bind(this)}/>
+                                               type="text" placeholder="35" onClick={this.selectGeoImport.bind(this)}
+                                               disabled={!this.props.is_enable}/>
                                     </tr>
                                 </td>
                                 <td>
@@ -48,7 +49,8 @@ class Input extends Component {
                                     </tr>
                                     <tr>
                                         <input className={`Text-input ${this.getGeoInputClass()}`} id="LonInput"
-                                               type="text" placeholder="139" onClick={this.selectGeoImport.bind(this)}/>
+                                               type="text" placeholder="139" onClick={this.selectGeoImport.bind(this)}
+                                               disabled={!this.props.is_enable}/>
                                     </tr>
                                 </td>
                                 </tbody>
@@ -56,7 +58,9 @@ class Input extends Component {
                         </div>
                     </div>
                 </div>
-                <div className={"Button Unselected"}>GO!</div>
+                <button className={`${this.props.is_enable ? "Button" : "Disabled-button"} Unselected`}
+                        disabled={!this.props.is_enable}>GO!
+                </button>
             </div>
         );
     }

@@ -14,7 +14,7 @@ class App extends Component {
                     </div>
                 </header>
                 <div className="Wrap">
-                    <Input/>
+                    <Input is_enable = {true}/>
                 </div>
             </div>
         );
