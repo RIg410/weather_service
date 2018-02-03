@@ -95,12 +95,19 @@
     border: 1px solid #FFF;
     width: 85%;
     padding: 10px;
-    /*max-width: 300px;*/
     margin: 0;
     font-family: 'Open Sans', sans-serif;
     font-size: 18px;
     color: #2B2B2B;
     list-style: none;
+}
+
+.Input-on {
+    background-color: #FFFFFF;
+}
+
+.Input-off {
+    background-color: #dfe0dd;
 }
 
 #GeoTable {
