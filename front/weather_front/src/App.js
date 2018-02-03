@@ -1,21 +1,24 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import Input from './Input.js';
+import logo from './cloud.png';
 import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <div className="App-logo">
+                        <img src={logo} className="App-logo-img" alt="logo"/>
+                        <h1 className={"App-title Unselected"}>Weather service</h1>
+                    </div>
+                </header>
+                <div className="Wrap">
+                    <Input/>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default App;
