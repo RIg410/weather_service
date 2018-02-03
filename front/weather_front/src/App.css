@@ -33,6 +33,7 @@
     color: white;
     font-size: 40px;
     text-align: center;
+    margin: 20px;
 }
 
 .Input-variable-text {
@@ -63,16 +64,46 @@
 .Button {
     text-align: center;
     padding: 20px;
-    font-size: 30px;
-    border-radius: 8px;
-    background-color: rgba(23, 35, 34, .75);
+    font-size: 32px;
+    background: #03E090;
+    cursor: pointer;
+    color: #FFF;
+    border: 2px solid #FFF;
+    /*border-radius: 8px;*/
+    /*background-color: rgba(23, 35, 34, .75);*/
     width: 100px;
     margin: 0 auto 20px;
 }
 
 .Button:hover {
-    background-color: rgb(0, 173, 239)
+    background-color: #32ff90
 }
 .Button:active {
-    background-color: rgb(10, 173, 255)
+    background-color: #46ffae
+}
+
+.Input-wrap {
+}
+
+.Text-input {
+    border: 1px solid #FFF;
+    width: 85%;
+    padding: 10px;
+    /*max-width: 300px;*/
+    margin: 0;
+    font-family: 'Open Sans',sans-serif;
+    font-size: 18px;
+    color: #2B2B2B;
+    list-style: none;
+}
+
+#CityNameInput {
+     max-width: 300px;
+ }
+
+#LatInput {
+    max-width: 100px;
+}
+#LonInput {
+    max-width: 100px;
 }

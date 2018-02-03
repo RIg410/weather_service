@@ -7,13 +7,25 @@ class App extends Component {
             <div className="Input-div">
                 <h1 className="Block-title Unselected">Check the weather!</h1>
                 <div>
-                    <div className={"Input-variable-text Unselected"}>Use city name.</div>
-                    <input className="Text-input" id="CityNameInput" type="text"/>
-                    <div className={"Input-variable-text Unselected"}>or geo coordinates.</div>
-                    <input className="Text-input" id="LatInput" type="text"/>
-                    <input className="Text-input" id="LonInput" type="text"/>
-                    <div className={"Button Unselected"}>GO!</div>
+                    <div className="Input-wrap">
+                        <label className={"Input-variable-text Unselected"}>Use city name.</label>
+                        <input className="Text-input" id="CityNameInput" type="text" placeholder="London"/>
+                    </div>
+                    <div className="Input-wrap">
+                        <label className={"Input-variable-text Unselected"}>or geo coordinates.</label>
+                        <div>
+                            <div>
+                                <label className="Unselected">Lat.</label>
+                                <input className="Text-input" id="LatInput" type="text" placeholder="35"/>
+                            </div>
+                            <div>
+                                <label className="Unselected">Lon.</label>
+                                <input className="Text-input" id="LonInput" type="text" placeholder="139"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div className={"Button Unselected"}>GO!</div>
             </div>
         );
     }
