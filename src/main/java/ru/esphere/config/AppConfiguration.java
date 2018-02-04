@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -45,7 +44,7 @@ public class AppConfiguration extends WebSecurityConfigurerAdapter {
         http.anonymous().disable();
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/**").authenticated()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll();
     }
