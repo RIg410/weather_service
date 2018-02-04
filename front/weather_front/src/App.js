@@ -13,9 +13,9 @@ class App extends Component {
             isInputEnable: true,
             showPending: false,
             showError: false,
-            showWeather: true,
+            showWeather: false,
             region: "",
-            weather: JSON.parse("{\"wind\":{\"speed\":13.26,\"deg\":274.0},\"main\":{\"temp\":280.152,\"pressure\":1014.3,\"humidity\":100.0,\"temp_min\":280.152,\"temp_max\":280.152},\"name\":\"Shuzenji\"}"),
+            weather: null,
             error: {
                 title: "something wrong :(",
                 why: "some error",
@@ -67,7 +67,6 @@ class App extends Component {
     }
 
     performAsyncWeatherRequest(param) {
-        const self = this;
         new Promise(function (resolve, reject) {
             try {
                 let xhr = new XMLHttpRequest();
@@ -78,7 +77,7 @@ class App extends Component {
                 } else {
                     const resp = JSON.parse(xhr.responseText);
                     if (resp.status === "FINISH") {
-                        resolve(res.result);
+                        resolve(resp.result);
                     } else if (resp.status === "ERROR") {
                         reject(resp.err);
                     } else {
@@ -93,7 +92,7 @@ class App extends Component {
                                 const resp = JSON.parse(xhr.responseText);
                                 if (resp.status === "FINISH") {
                                     clearInterval(timerId);
-                                    resolve(res.result);
+                                    resolve(resp.result);
                                 } else if (resp.status === "ERROR") {
                                     clearInterval(timerId);
                                     reject(resp.err);
@@ -154,12 +153,19 @@ class App extends Component {
                     <Pending showPending={this.state.showPending}/>
                     <Error showError={this.state.showError} closeError={this.closeError.bind(this)}
                            error={this.state.error}/>
-                    <Weather showWeather={this.state.showWeather} weather={this.state.weather}
-                             region={this.state.region}/>
+                    {this.weather()}
                 </div>
             </div>
         );
     }
+
+    weather() {
+        if (this.state.showWeather) {
+            return <Weather showWeather={this.state.showWeather} weather={this.state.weather} region={this.state.region}/>;
+        }
+        return null;
+    }
+
 
     static checkGeoData(lat, lon) {
         const err = App.checkGeoField(lat, "lat");

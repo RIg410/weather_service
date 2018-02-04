@@ -43,8 +43,12 @@ public class OpenWeatherRepo implements WeatherRepo {
                 throw new LoadWeatherException("Failed to load weather data. Perhaps the location [" + cityName + "] does not exist.");
             }
         } catch (Exception e) {
-            logger.error("Failed to load weather data. {}", e);
-            throw new LoadWeatherException("Failed to load weather data. Please try again later.");
+            if (!(e instanceof LoadWeatherException)) {
+                logger.error("Failed to load weather data. {}", e);
+                throw new LoadWeatherException("Failed to load weather data. Please try again later.");
+            } else {
+                throw (LoadWeatherException) e;
+            }
         }
     }
 

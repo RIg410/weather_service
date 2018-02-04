@@ -24,9 +24,11 @@ class Input extends Component {
                 <div>
                     <div className="Input-wrap">
                         <label className={"Input-variable-text Unselected"}>Use city name.</label>
-                        <input className={`Text-input ${this.getNameInputClass()}`} id="CityNameInput"
-                               onClick={this.selectNameImport.bind(this)} type="text" ref="cityNameInput"
-                               placeholder="London" disabled={!this.props.isEnable}/>
+                        <div>
+                            <input className={`Text-input ${this.getNameInputClass()}`} id="CityNameInput"
+                                   onClick={this.selectNameImport.bind(this)} type="text" ref="cityNameInput"
+                                   placeholder="London" disabled={!this.props.isEnable}/>
+                        </div>
                     </div>
                     <div className="Input-wrap">
                         <label className={"Input-variable-text Unselected"}>or geo coordinates.</label>
