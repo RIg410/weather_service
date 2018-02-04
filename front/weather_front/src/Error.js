@@ -4,7 +4,7 @@ import './App.css';
 class Error extends Component {
     render() {
         return (
-            <div className={`Error-view  ${this.props.show_error ? "": "Hidden"}`}>
+            <div className={`Error-view  ${this.props.showError ? "": "Hidden"}`}>
                 <p id={"Error-title"}>{this.props.error.title}</p>
                 <p id={"Error-text"}>{this.props.error.why}</p>
                 <button className={"Button"} onClick={this.closeError.bind(this)}>Ok!</button>

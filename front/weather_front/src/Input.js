@@ -72,24 +72,12 @@ class Input extends Component {
     checkWeather() {
         if (this.state.is_search_by_name) {
             const name = this.refs.cityNameInput.value;
-            if (Input.isEmpty(name)) {
-                //todo eer
-            } else {
-                this.props.searchByName(name);
-            }
+            this.props.searchByName(name);
         } else {
             const lat = this.refs.latInput.value;
             const lon = this.refs.lonInput.value;
-            if (Input.isEmpty(lat) || Input.isEmpty(lon) || isNaN(lat) || isNaN(lon)) {
-                //todo eer
-            } else {
-                this.props.searchByGeo(lat, lon);
-            }
+            this.props.searchByGeo(lat, lon);
         }
-    }
-
-    static isEmpty(str) {
-        return (!str || 0 === str.length);
     }
 
     selectNameImport() {

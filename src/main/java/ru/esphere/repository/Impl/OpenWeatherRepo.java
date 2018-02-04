@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -15,6 +17,7 @@ import ru.esphere.repository.WeatherRepo;
 
 @Repository("OpenWeather")
 public class OpenWeatherRepo implements WeatherRepo {
+    private final Logger logger = LoggerFactory.getLogger(OpenWeatherRepo.class);
     private final String appid;
     private final ObjectMapper objectMapper;
 
@@ -36,10 +39,12 @@ public class OpenWeatherRepo implements WeatherRepo {
             if (resp.getStatusLine().getStatusCode() == 200) {
                 return objectMapper.readValue(resp.getEntity().getContent(), Weather.class);
             } else {
-                throw new LoadWeatherException("Failed to load weather data. Status line: [" + resp.getStatusLine() + "]");
+                logger.error("Failed to load weather data by cityName [{}]. Status line: [{}]", cityName, resp.getStatusLine());
+                throw new LoadWeatherException("Failed to load weather data. Perhaps the location [" + cityName + "] does not exist.");
             }
         } catch (Exception e) {
-            throw new LoadWeatherException(e.getMessage());
+            logger.error("Failed to load weather data. {}", e);
+            throw new LoadWeatherException("Failed to load weather data. Please try again later.");
         }
     }
 
@@ -55,7 +60,9 @@ public class OpenWeatherRepo implements WeatherRepo {
             if (resp.getStatusLine().getStatusCode() == 200) {
                 return objectMapper.readValue(resp.getEntity().getContent(), Weather.class);
             } else {
-                throw new LoadWeatherException("Failed to load weather data. Status line: [" + resp.getStatusLine() + "]");
+                logger.error("Failed to load weather data by geo coord [{}]. Status line: [{}]", coord, resp.getStatusLine());
+                throw new LoadWeatherException("Failed to load weather data. " +
+                        "Perhaps the location [ lat: " + coord.getLat() + ", lon: " + coord.getLon() + "] does not exist.");
             }
         } catch (Exception e) {
             throw new LoadWeatherException(e.getMessage());

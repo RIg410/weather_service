@@ -10,37 +10,131 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            is_input_enable: false,
-            show_pending: false,
-            show_error: true,
-            show_weather: true,
-            region: "London",
+            isInputEnable: true,
+            showPending: false,
+            showError: false,
+            showWeather: true,
+            region: "",
+            weather: JSON.parse("{\"wind\":{\"speed\":13.26,\"deg\":274.0},\"main\":{\"temp\":280.152,\"pressure\":1014.3,\"humidity\":100.0,\"temp_min\":280.152,\"temp_max\":280.152},\"name\":\"Shuzenji\"}"),
             error: {
-                title:"something wrong :(",
-                why:"some error",
+                title: "something wrong :(",
+                why: "some error",
             }
         };
     }
 
-    static searchByName(name) {
-        this.setState({
-            is_input_enable: false,
-            show_pending: true
-        });
+    searchByName(name) {
+        if (App.isEmpty(name)) {
+            this.setState({
+                isInputEnable: false,
+                showError: true,
+                error: {
+                    title: "Please. Check yourself.",
+                    why: "When you search by city name, field name must not be empty.",
+                }
+            });
+        } else {
+            this.setState({
+                region: `name`,
+                isInputEnable: false,
+                showPending: true
+            });
+            let params = 'q=' + encodeURIComponent(name);
+            this.performAsyncWeatherRequest(params);
+        }
     }
 
-    static searchGao(lat, lon) {
-        this.setState({
-            is_input_enable: false,
-            show_pending: true
-        });
+    searchByGeo(lat, lon) {
+        const err = App.checkGeoData(lat, lon);
+        if (err) {
+            this.setState({
+                isInputEnable: false,
+                showError: true,
+                error: {
+                    title: "Please. Check yourself.",
+                    why: err,
+                }
+            });
+        } else {
+            this.setState({
+                region: `(lat:${lat}; lon:${lon})`,
+                isInputEnable: false,
+                showPending: true
+            });
+            let params = `lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}`;
+            this.performAsyncWeatherRequest(params);
+        }
+    }
+
+    performAsyncWeatherRequest(param) {
+        const self = this;
+        new Promise(function (resolve, reject) {
+            try {
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET', `http://localhost:8080/api/weather?${param}`, false);
+                xhr.send();
+                if (xhr.status !== 200) {
+                    reject("Failed to communicate with the server. Try again later.");
+                } else {
+                    const resp = JSON.parse(xhr.responseText);
+                    if (resp.status === "FINISH") {
+                        resolve(res.result);
+                    } else if (resp.status === "ERROR") {
+                        reject(resp.err);
+                    } else {
+                        let timerId = setInterval(() => {
+                            let xhr = new XMLHttpRequest();
+                            xhr.open('GET', `http://localhost:8080/api/track/${resp.trackId}`, false);
+                            xhr.send();
+                            if (xhr.status !== 200) {
+                                clearInterval(timerId);
+                                reject("Failed to communicate with the server. Try again later.");
+                            } else {
+                                const resp = JSON.parse(xhr.responseText);
+                                if (resp.status === "FINISH") {
+                                    clearInterval(timerId);
+                                    resolve(res.result);
+                                } else if (resp.status === "ERROR") {
+                                    clearInterval(timerId);
+                                    reject(resp.err);
+                                }
+                            }
+                        }, 200);
+                    }
+                }
+            } catch (err) {
+                console.error(err);
+                reject("Failed to communicate with the server. Try again later.");
+            }
+        }).then(
+            result => {
+                this.setState({
+                    isInputEnable: true,
+                    showPending: false,
+                    showError: false,
+                    showWeather: true,
+                    weather: result,
+                });
+            },
+            err => {
+                this.setState({
+                    isInputEnable: false,
+                    showPending: false,
+                    showError: true,
+                    error: {
+                        title: "Something wrong!",
+                        why: err,
+                    }
+                });
+            }
+        );
     }
 
     closeError() {
         this.setState({
-            is_input_enable :true,
-            show_pending: false,
-            show_error: false,
+            isInputEnable: true,
+            showPending: false,
+            showError: false,
         });
     }
 
@@ -54,19 +148,40 @@ class App extends Component {
                     </div>
                 </header>
                 <div className="Wrap">
-                    <Input isEnable={this.state.is_input_enable}
-                           searchByGeo={App.searchGao}
-                           searchByName={App.searchByName.bind(this)}
-                           show_pending={this.state.show_pending}
-                    />
-                    <Pending show_pending={this.state.show_pending}/>
-                    <Error show_error={this.state.show_error} closeError={this.closeError.bind(this)}
-                    error={this.state.error}/>
-                    <Weather show_weather={this.state.show_weather}
+                    <Input isEnable={this.state.isInputEnable}
+                           searchByGeo={this.searchByGeo.bind(this)}
+                           searchByName={this.searchByName.bind(this)}/>
+                    <Pending showPending={this.state.showPending}/>
+                    <Error showError={this.state.showError} closeError={this.closeError.bind(this)}
+                           error={this.state.error}/>
+                    <Weather showWeather={this.state.showWeather} weather={this.state.weather}
                              region={this.state.region}/>
                 </div>
             </div>
         );
+    }
+
+    static checkGeoData(lat, lon) {
+        const err = App.checkGeoField(lat, "lat");
+        if (err) {
+            return err;
+        } else {
+            return App.checkGeoField(lon, "lon");
+        }
+    }
+
+    static checkGeoField(field, name) {
+        if (App.isEmpty(field)) {
+            return `When you search by geo coordinates, field ${name} must not be empty.`
+        }
+        if (isNaN(field) || parseFloat(field) < 0) {
+            return `When you search by geo coordinates, field ${name} must be a positive number.`
+        }
+        return null;
+    }
+
+    static isEmpty(str) {
+        return (!str || 0 === str.length);
     }
 }
 

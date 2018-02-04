@@ -10,6 +10,8 @@ public class Weather {
 
     private Wind wind;
 
+    @JsonProperty("name")
+    private String cityName;
 
     public MainData getMainData() {
         return mainData;
@@ -30,8 +32,9 @@ public class Weather {
     @Override
     public String toString() {
         return "Weather{" +
-                " mainData=" + mainData +
+                "mainData=" + mainData +
                 ", wind=" + wind +
+                ", cityName='" + cityName + '\'' +
                 '}';
     }
 }
