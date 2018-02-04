@@ -43,8 +43,14 @@
     text-align: center;
 }
 
+.Pending-text {
+    color: white;
+    font-size: 30px;
+    text-align: center;
+}
+
 .Input-div-blur {
-    background-color:#8CD6EB;
+    background-color: #8CD6EB;
     -webkit-filter: blur(3px);
     -moz-filter: blur(3px);
     -o-filter: blur(3px);
@@ -147,4 +153,53 @@ td {
 
 #LonInput {
     max-width: 120px;
+}
+
+.Pending-view {
+    background: rgba(34, 34, 34, 0.3);
+    position: absolute;
+    top: 350px;
+    left: 135px;
+    border-radius: 2px;
+    padding: 20px;
+}
+
+.Hidden {
+    display: none;
+}
+
+#Pending-view-img {
+    height: 150px;
+}
+
+#Weather-view {
+    border-radius: 2px;
+    float: left;
+    background: rgb(1, 152, 225);
+    color: white;
+    width: 500px;
+    margin-right: 10px;
+}
+
+.Error-view {
+    background: rgba(34, 34, 34, 0.9);
+    position: absolute;
+    top: 400px;
+    min-height: 200px;
+    left: 20px;
+    width: 500px;
+    border-radius: 2px;
+}
+
+#Error-title {
+    color: white;
+    font-size: 34px;
+    text-align: center;
+}
+
+
+#Error-text {
+    color: white;
+    font-size: 20px;
+    text-align: center;
 }
