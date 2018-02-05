@@ -42,7 +42,7 @@
         </triggeringPolicy>
     </appender>
 
-    <logger name="ru.esphere.ApiLogger" level="INFO" additivity="false">
+    <logger name="ru.esphere.service.ApiLogger" level="INFO" additivity="false">
         <appender-ref ref="API_LOG"/>
     </logger>
 

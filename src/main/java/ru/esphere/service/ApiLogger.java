@@ -1,4 +1,4 @@
-package ru.esphere;
+package ru.esphere.service;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

@@ -70,7 +70,7 @@ class App extends Component {
         new Promise(function (resolve, reject) {
             try {
                 let xhr = new XMLHttpRequest();
-                xhr.open('GET', `http://localhost:8080/api/weather?${param}`, false);
+                xhr.open('GET', `/api/weather?${param}`, false);
                 xhr.send();
                 if (xhr.status !== 200) {
                     reject("Failed to communicate with the server. Try again later.");
@@ -83,7 +83,7 @@ class App extends Component {
                     } else {
                         let timerId = setInterval(() => {
                             let xhr = new XMLHttpRequest();
-                            xhr.open('GET', `http://localhost:8080/api/track/${resp.trackId}`, false);
+                            xhr.open('GET', `/api/track/${resp.trackId}`, false);
                             xhr.send();
                             if (xhr.status !== 200) {
                                 clearInterval(timerId);

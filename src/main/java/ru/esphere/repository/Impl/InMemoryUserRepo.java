@@ -15,6 +15,7 @@ public class InMemoryUserRepo implements UserRepo {
     public InMemoryUserRepo() {
         users = new HashMap<>();
         users.put("rig410", new User("rig410", "$2a$10$sbJFA55v.h.eNQ0/w.2.mu7C.a/sDewz8D8EYdRd1ZpykdKDPBySm"));//password1
+        users.put("user", new User("user", "$2a$10$MTohxy7u8nU3iYrfVbLVtecLm0ba.T5khl8dk75L3TedYYFXEd/C."));//user
     }
 
     @Override
